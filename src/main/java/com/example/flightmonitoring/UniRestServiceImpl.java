@@ -1,15 +1,13 @@
 package com.example.flightmonitoring;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
+import exception.FlightClientException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-
-import java.util.HashSet;
 
 @Slf4j
 @Service

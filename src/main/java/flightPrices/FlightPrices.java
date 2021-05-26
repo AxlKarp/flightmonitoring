@@ -1,4 +1,4 @@
-package com.example.flightmonitoring;
+package flightPrices;
 
 public interface FlightPrices {
     /*

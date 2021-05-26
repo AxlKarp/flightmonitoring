@@ -1,26 +1,23 @@
-package com.example.flightmonitoring;
-import static com.example.flightmonitoring.UniRestServiceImpl.PLACES_KEY;
-import static com.github.Aleksey.flightsmonitoring.client.service.impl.UniRestServiceImpl.CURRENCIES_KEY;
-import static com.github.Aleksey.flightsmonitoring.client.service.impl.UniRestServiceImpl.PLACES_KEY;
+package flightPrices;
 
+import com.example.flightmonitoring.CurrencyDto;
+import com.example.flightmonitoring.PlacesDto;
+import com.example.flightmonitoring.UniRestService;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.Aleksey.flightsmonitoring.client.dto.CarrierDto;
-import com.github.Aleksey.flightsmonitoring.client.dto.CurrencyDto;
-import com.github.Aleksey.flightsmonitoring.client.dto.FlightPricesDto;
-import com.github.Aleksey.flightsmonitoring.client.dto.PlaceDto;
-import com.github.Aleksey.flightsmonitoring.client.dto.QuoteDto;
-import com.github.Aleksey.flightsmonitoring.client.dto.ValidationErrorDto;
-import com.github.Aleksey.flightsmonitoring.client.service.FlightPricesClient;
-import com.github.Aleksey.flightsmonitoring.client.service.UniRestService;
-import com.github.Aleksey.flightsmonitoring.exception.FlightClientException;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
-import java.io.IOException;
-import java.util.List;
+import exception.FlightClientException;
+import exception.ValidationErrorDto;
 import org.apache.http.HttpStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.io.IOException;
+import java.util.List;
+
+import static com.example.flightmonitoring.UniRestServiceImpl.CURRENCIES_KEY;
+import static com.example.flightmonitoring.UniRestServiceImpl.PLACES_KEY;
 
 @Service
 public class FlightPriceClientImpl implements FlightPrices {
@@ -44,26 +41,33 @@ public class FlightPriceClientImpl implements FlightPrices {
     public FlightPricesDto browseQuotes(String country, String currency, String locale, String originPlace,
                                         String destinationPlace, String outBoundPartialDate) {
         HttpResponse<JsonNode> response = uniRestService.get(String.format(BROWSE_QUOTES_FORMAT, country, currency,
-                locale, originPlace));
+                locale, originPlace,destinationPlace, outBoundPartialDate));
+        return mapToObject(response);
+    }
+    public FlightPricesDto browseQuotes(String country, String currency, String locale, String originPlace,
+                                        String destinationPlace, String outboundPartialDate, String inboundPartialDate) {
+        HttpResponse<JsonNode> response = uniRestService.get(String
+                .format(OPTIONAL_BROWSE_QUOTES_FORMAT, country, currency, locale, originPlace, destinationPlace,
+                        outboundPartialDate, inboundPartialDate));
         return mapToObject(response);
     }
 
     private FlightPricesDto mapToObject(HttpResponse<JsonNode> response) {
         if (response.getStatus() == HttpStatus.SC_OK) {
-            FlightPricesDto flightPricesDto = new FligthPricesDto();
+            FlightPricesDto flightPricesDto = new FlightPricesDto();
             flightPricesDto.setQuotas(readValue(response.getBody().getObject().get(QUOTES_KEY).toString(),
                     new TypeReference<List<QuoteDto>>() {
                     }));
             flightPricesDto.setCarriers(readValue(response.getBody().getObject().get(CARRIERS_KEY).toString(),
                     new TypeReference<List<CarrierDto>>() {
                     }));
-            flightPricesDto.setCurrencies(readValue(response.getBody().getObject().get(CARRIERS_KEY).toString(),
+            flightPricesDto.setCurrencies(readValue(response.getBody().getObject().get(CURRENCIES_KEY).toString(),
                     new TypeReference<List<CurrencyDto>>() {
                     }));
             flightPricesDto.setPlaces(readValue(response.getBody().getObject().get(PLACES_KEY).toString(),
                     new TypeReference<List<PlacesDto>>() {
                     }));
-            return FlightPricesDto;
+            return flightPricesDto;
         }
         throw new FlightClientException(String.format("There are validation errors. StatusCode is %s", response.getStatus()),
                 readValue(response.getBody().getObject().get(VALIDATIONS_KEY).toString(),
