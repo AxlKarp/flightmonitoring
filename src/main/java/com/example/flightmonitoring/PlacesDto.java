@@ -1,7 +1,6 @@
 package com.example.flightmonitoring;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.github.Aleksey.flightsmonitoring.client.service.PlacesClient;
 import lombok.Data;
 
 
