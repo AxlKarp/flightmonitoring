@@ -39,6 +39,4 @@ public class UniRestServiceImpl implements UniRestService{
         log.info("Response from Get request, on path={}, statusCode={}, response={}", path, response.getStatus(), response.getBody().toString());
         return response;
     }
-
-
 }

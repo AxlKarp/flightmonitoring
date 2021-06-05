@@ -2,17 +2,10 @@ package com.example.flightmonitoring;
 import static com.example.flightmonitoring.UniRestServiceImpl.COUNTRIES_FORMAT;
 import static com.example.flightmonitoring.UniRestServiceImpl.COUNTRIES_KEY;
 import static com.example.flightmonitoring.UniRestServiceImpl.CURRENCIES_KEY;
-import static com.github.Aleksey.flightsmonitoring.client.service.impl.UniRestServiceImpl.COUNTRIES_FORMAT;
-import static com.github.Aleksey.flightsmonitoring.client.service.impl.UniRestServiceImpl.COUNTRIES_KEY;
-import static com.github.Aleksey.flightsmonitoring.client.service.impl.UniRestServiceImpl.CURRENCIES_FORMAT;
-import static com.github.Aleksey.flightsmonitoring.client.service.impl.UniRestServiceImpl.CURRENCIES_KEY;
+
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.Aleksey.flightsmonitoring.client.dto.CountryDto;
-import com.github.Aleksey.flightsmonitoring.client.dto.CurrencyDto;
-import com.github.Aleksey.flightsmonitoring.client.service.LocalisationClient;
-import com.github.Aleksey.flightsmonitoring.client.service.UniRestService;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.exceptions.UnirestException;
@@ -31,7 +24,6 @@ public class LocalisationClientImpl implements LocalisationClient {
 
     @Autowired
     private ObjectMapper objectMapper;
-
 
     @Override
     public List<CountryDto> retrieveCountries(String locale) throws IOException {

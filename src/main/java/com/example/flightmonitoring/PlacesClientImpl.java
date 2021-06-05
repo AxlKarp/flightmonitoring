@@ -5,9 +5,6 @@ import static com.example.flightmonitoring.UniRestServiceImpl.PLACES_KEY;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.Aleksey.flightsmonitoring.client.dto.PlacesDto;
-import com.github.Aleksey.flightsmonitoring.client.service.PlacesClient;
-import com.github.Aleksey.flightsmonitoring.client.service.UniRestService;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.exceptions.UnirestException;
