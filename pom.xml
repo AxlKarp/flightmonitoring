@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
+        <artifactId>flightmonitoring</artifactId>
         <version>2.4.5</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
@@ -12,13 +12,18 @@
     <groupId>com.example</groupId>
     <artifactId>flight-monitoring</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>flight-monitoring</name>
-    <description>Demo project for Spring Boot</description>
+    <name>flightmonitoring</name>
+    <description>Client for Skyscanner Flight Search API hosted in Rapid Api</description>
 
     <properties>
         <java.version>11</java.version>
     </properties>
     <dependencies>
+        <dependency>
+            <groupId>com.example</groupId>
+            <artifactId>flightmonitoring</artifactId>
+            <version>0.1.10</version>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
